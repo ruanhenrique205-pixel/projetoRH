@@ -38,20 +38,32 @@ public class GerenciadorDeFuncionario {
 	public void listarFuncionarios() {
 		for(Map.Entry<Integer, Funcionario> buscar : gerenciar.entrySet()) {
 	
-		Integer id = buscar.getKey();
+		//Integer id = buscar.getKey();
 		Funcionario dados = buscar.getValue();
 	
-		System.out.println("informacoes do funcionario : " +  "\nnome :" + dados.getNome() +
+		System.out.println("informacoes do funcionario : " +"\nId : " + dados.getId() + "\nnome : " + dados.getNome() +
 				"\ncargo : " + dados.getCargo()+ 
 				"\ndata de admissao : " + dados.getDataDeAdmisao() + 
-				"salario : " + dados.getSalario());
-		System.out.println(id + " id do Funcionario ");
+				"\nsalario : " + dados.getSalario());
+		System.out.println();
+		
+		
 	}
 }
 	
 	public void removerFuncionario(int id) {
+		
+	
 		gerenciar.remove(id);
 	}
+	
+	public void editarFuncionario(Funcionario  funcionarioAtualizado) {
+
+	gerenciar.put(funcionarioAtualizado.getId(), funcionarioAtualizado);
+}
+
+
+
 	
 }
 
