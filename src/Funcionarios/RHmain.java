@@ -12,6 +12,8 @@ public class RHmain {
 	
 	
 	Scanner sc = new Scanner(System.in);
+	
+	gerenciador.carregarFuncionario();
 
 	boolean rodando = true;
 	
@@ -54,6 +56,8 @@ public class RHmain {
 			
 			System.out.println("id : " + infoFuncionario.getId() +  "\nnome : " + infoFuncionario.getNome() +  "\ncargo : " +  infoFuncionario.getCargo() + "\nsalario : " + infoFuncionario.getSalario() + "\ndata de admissao : " + infoFuncionario.getDataDeAdmisao());
 
+			gerenciador.salvarFuncionario();
+			
 			break;
 		case 2:
 			System.out.println("digite seu Id ");
@@ -74,7 +78,7 @@ public class RHmain {
 			
 			break;
 		case 4:
-			System.out.print("digite o ID do funcionario que deseja remover");
+			System.out.print("digite o ID do funcionario que deseja remover : ");
 			
 			int remover = sc.nextInt();
 	
@@ -82,6 +86,7 @@ public class RHmain {
 			
 			System.out.println("funcionario removido com sucesso");
 			
+			gerenciador.salvarFuncionario();
 			break;
 			
 		case 5:
@@ -110,6 +115,8 @@ public class RHmain {
 			gerenciador.editarFuncionario(editarFuncionario);
 			
 			System.out.println("id :" + editarFuncionario.getId() + "\nnome : " + editarFuncionario.getNome() + "\ncargo : " + editarFuncionario.getCargo() + "\ndata de admsao : " + editarFuncionario.getDataDeAdmisao());
+			
+			gerenciador.salvarFuncionario();
 			break;
 			
 		case 6:
