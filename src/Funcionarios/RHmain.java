@@ -25,7 +25,8 @@ public class RHmain {
 		System.out.println("3- Listar Funcionario");
 		System.out.println("4- Remover Funcionario");
 		System.out.println("5- Editar Funcionario");
-		System.out.println("6- Sair");
+		System.out.println("6- Salario Liquido");
+		System.out.println("7- Sair");
 		
 		int info = sc.nextInt();
 		
@@ -119,7 +120,20 @@ public class RHmain {
 			gerenciador.salvarFuncionario();
 			break;
 			
-		case 6:
+		case 6 :
+			System.out.print("digite seu Id :");
+			int digitarId = sc.nextInt();
+			
+			Funcionario encontrado = gerenciador.buscarFuncionario(digitarId);
+			
+			if(encontrado == null) {
+
+			System.out.println("ops, nao possui nada aqui");
+			}else {
+				System.out.println(gerenciador.calcularSalarioLiquido(encontrado));
+			}
+			break;
+		case 7:
 			System.out.println("sair");
 			rodando = false;
 			

@@ -12,6 +12,23 @@ public class GerenciadorDeFuncionario {
 
 	private HashMap<Integer, Funcionario> gerenciar = new HashMap<>();
 
+	CalculoSalario bonus = (funcionario) ->{
+
+	if(funcionario.getCargo().equals("lider") || funcionario.getCargo().equals("gerente")) {
+
+		return funcionario.getSalario() + 500;
+
+}else {
+	return funcionario.getSalario();
+}
+
+	
+};
+
+CalculoSalario desconto = (funcionario) ->{
+	return funcionario.getSalario() *0.9;
+	
+};
 	public HashMap<Integer, Funcionario> getGerenciar() {
 		return gerenciar;
 	}
@@ -114,7 +131,16 @@ try {
     	System.out.println(e.getMessage());
     }
 
+}public double calcularSalarioLiquido(Funcionario funcionario) {
+
+	double salarioLiquido = bonus.calcular(funcionario) * 0.9;
+	
+	return salarioLiquido;
+	
 }
 
+
 }
+
+
 
