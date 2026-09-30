@@ -1,5 +1,6 @@
 package Funcionarios;
 
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -26,7 +27,9 @@ public class RHmain {
 		System.out.println("4- Remover Funcionario");
 		System.out.println("5- Editar Funcionario");
 		System.out.println("6- Salario Liquido");
-		System.out.println("7- Sair");
+		System.out.println("7- Maior Salario");
+		System.out.println("8- Quantidade Por Cargo");
+		System.out.println("9- Sair");
 		
 		int info = sc.nextInt();
 		
@@ -133,8 +136,27 @@ public class RHmain {
 				System.out.println(gerenciador.calcularSalarioLiquido(encontrado));
 			}
 			break;
-		case 7:
-			System.out.println("sair");
+			
+		case 7 :
+			Funcionario funcionarioSalario = gerenciador.funcionarioComMaiorSalario();
+			
+			System.out.println("nome : " + funcionarioSalario.getNome() + "\ncargo : " + funcionarioSalario.getCargo() + "\nsalario : " + funcionarioSalario.getSalario());
+			break;
+			
+		case 8 :
+			for(Map.Entry<String, Long> quanti : gerenciador.quantidadePorCargo().entrySet()) {
+
+				String cargos = quanti.getKey();
+				Long quantidade = quanti.getValue();
+				
+				System.out.println("cargo : " + cargos + "\nquantidade : " + quantidade);
+			}
+			
+			break;
+		case 9:
+			
+			System.out.println("Programa Encerrando em 3,2,1");
+			System.out.println("Saindo...");
 			rodando = false;
 			
 			break;

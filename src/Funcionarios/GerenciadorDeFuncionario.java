@@ -4,31 +4,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class GerenciadorDeFuncionario {
 
 	private HashMap<Integer, Funcionario> gerenciar = new HashMap<>();
 
-	CalculoSalario bonus = (funcionario) ->{
+	CalculoSalario bonus = (funcionario) -> {
 
-	if(funcionario.getCargo().equals("lider") || funcionario.getCargo().equals("gerente")) {
+		if (funcionario.getCargo().equals("lider") || funcionario.getCargo().equals("gerente")) {
 
-		return funcionario.getSalario() + 500;
+			return funcionario.getSalario() + 500;
 
-}else {
-	return funcionario.getSalario();
-}
+		} else {
+			return funcionario.getSalario();
+		}
 
-	
-};
+	};
 
-CalculoSalario desconto = (funcionario) ->{
-	return funcionario.getSalario() *0.9;
-	
-};
+	CalculoSalario desconto = (funcionario) -> {
+		return funcionario.getSalario() * 0.9;
+
+	};
+
 	public HashMap<Integer, Funcionario> getGerenciar() {
 		return gerenciar;
 	}
@@ -100,47 +104,60 @@ CalculoSalario desconto = (funcionario) ->{
 	}
 
 	public void carregarFuncionario() {
-		
-try {
-	File mostrar = new File("funcionarios.txt");
 
-        Scanner sc = new Scanner (mostrar);
-        
-        
+		try {
+			File mostrar = new File("funcionarios.txt");
 
-        while(sc.hasNextLine()) {
+			Scanner sc = new Scanner(mostrar);
 
-            String texto = sc.nextLine();
-            String [] converter = texto.split(";");
-            
+			while (sc.hasNextLine()) {
 
-            Integer id = Integer.parseInt(converter[0]);
-            
-            Double salario = Double.parseDouble(converter[3]);
-            
-            
-            Funcionario funcionarioCarregado = new Funcionario(id , converter[1] , converter[2] ,salario , converter[4]);
-            
-      
-            cadastrarFuncionario(funcionarioCarregado);
-        }
-        sc.close();
-        
-    }catch (FileNotFoundException e) {
+				String texto = sc.nextLine();
+				String[] converter = texto.split(";");
 
-    	System.out.println(e.getMessage());
-    }
+				Integer id = Integer.parseInt(converter[0]);
 
-}public double calcularSalarioLiquido(Funcionario funcionario) {
+				Double salario = Double.parseDouble(converter[3]);
 
-	double salarioLiquido = bonus.calcular(funcionario) * 0.9;
+				Funcionario funcionarioCarregado = new Funcionario(id, converter[1], converter[2], salario,
+						converter[4]);
+
+				cadastrarFuncionario(funcionarioCarregado);
+			}
+			sc.close();
+
+		} catch (FileNotFoundException e) {
+
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	public double calcularSalarioLiquido(Funcionario funcionario) {
+
+		double salarioLiquido = bonus.calcular(funcionario) * 0.9;
+
+		return salarioLiquido;
+
+	}
+
+	public Funcionario funcionarioComMaiorSalario() {
+
+		List<Funcionario> salarioMaior = List.copyOf(gerenciar.values());
+
+		Optional<Funcionario> resultado = salarioMaior.stream()
+
+				.max(Comparator.comparing(Funcionario::getSalario));
+
+		return resultado.get();
+
+	}
+
+		public Map<String, Long> quantidadePorCargo() {
+			Map<String, Long> resultado = gerenciar.values().stream()
+					.collect(Collectors.groupingBy(Funcionario::getCargo, Collectors.counting()));
 	
-	return salarioLiquido;
-	
-}
-
+			return resultado;
+		}
 
 }
-
-
-
